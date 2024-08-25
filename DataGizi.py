@@ -195,22 +195,26 @@ elif page == "Prediksi Manual":
         berat = st.number_input("Masukkan Berat Badan (kg):", min_value=0.0, max_value=100.0)
         tinggi = st.number_input("Masukkan Tinggi Badan (cm):", min_value=0.0, max_value=200.0)
 
-        if st.button("Lakukan Prediksi"):
-            # Data input manual disimpan dalam DataFrame dengan nama kolom yang sesuai
-            input_data = pd.DataFrame([[usia, berat, tinggi]], columns=feature_names)
+if st.button("Lakukan Prediksi"):
+    # Data input manual disimpan dalam DataFrame dengan nama kolom yang sesuai
+    input_data = pd.DataFrame([[usia, berat, tinggi]], columns=feature_names)
 
-            # Preprocessing jika diperlukan
-            if st.session_state.apply_normalization and normalizer is not None:
-                input_data = normalizer.transform(input_data)
+    # Preprocessing jika diperlukan
+    if st.session_state.apply_normalization and normalizer is not None:
+        input_data = normalizer.transform(input_data)
 
-            if st.session_state.apply_standardization and scaler is not None:
-                input_data = scaler.transform(input_data)
+    if st.session_state.apply_standardization and scaler is not None:
+        input_data = scaler.transform(input_data)
 
-            # Prediksi
-            prediction = model.predict(input_data)
-            
-            # Tampilkan hasil prediksi
-            if le is not None:
-                prediction = le.inverse_transform(prediction)
-                
-            st.write(f"Hasil Prediksi: {prediction[0]}")
+    # Prediksi
+    prediction = model.predict(input_data)
+
+    # Pastikan prediksi mengenali "Gizi Lebih"
+    if le is not None:
+        prediction = le.inverse_transform(prediction)
+    
+    # Tampilkan hasil prediksi
+    if prediction[0] == 'Gizi Lebih':
+        st.success(f"Hasil Prediksi: {prediction[0]} (Gizi Lebih)")
+    else:
+        st.write(f"Hasil Prediksi: {prediction[0]}")
