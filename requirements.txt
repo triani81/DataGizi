@@ -1,7 +1,0 @@
-numpy==1.26.1
-pandas==2.1.1
-streamlit 
-pickle
-scikit-learn
-pip==24.2
-seaborn
