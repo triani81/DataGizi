@@ -27,7 +27,7 @@ if 'feature_names' not in st.session_state:
     st.session_state.feature_names = None
 
 # Judul Aplikasi
-st.title("Aplikasi Klasifikasi Data Gizi dengan Naive Bayes")
+st.title("Klasifikasi Status Berat Badan Bayi 0-59 Bulan Dengan Algoritma Naive Bayes")
 
 # Pilih Halaman
 page = st.sidebar.selectbox("Pilih Halaman", ["Upload Data", "Prediksi Manual"])
